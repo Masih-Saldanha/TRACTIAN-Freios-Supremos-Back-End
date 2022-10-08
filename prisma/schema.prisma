@@ -15,64 +15,56 @@ model Test {
   name String
 }
 
-model Post {
-  id       String    @id @default(auto()) @map("_id") @db.ObjectId
-  slug     String    @unique
-  title    String
-  body     String
-  comments Comment[]
-  author   User      @relation(fields: [authorId], references: [id])
-  authorId String    @db.ObjectId
+enum Status {
+  Running
+  Alerting
+  Stopped
 }
 
-// Comments contain a comment string and connect back to the post.
-// postId must have @db.ObjectId to match up with Post's id type
-model Comment {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
-  post    Post   @relation(fields: [postId], references: [id])
-  postId  String @db.ObjectId
-  comment String
+model Assets {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  image       String
+  name        String
+  description String
+  model       String
+  owner       String
+  status      Status
+  healthLevel Int
+  unitId      String @db.ObjectId
+  unit        Units  @relation(fields: [unitId], references: [id])
 }
 
-model User {
+model Users {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  email     String    @unique
+  name      String
+  password  String
+  companyId String    @db.ObjectId
+  company   Companies @relation(fields: [companyId], references: [id])
+}
+
+model UnitsAdresses {
+  id               String  @id @default(auto()) @map("_id") @db.ObjectId
+  street           String
+  number           Int
+  zip              String
+  extraInformation String?
+  units            Units[]
+}
+
+model Companies {
   id    String  @id @default(auto()) @map("_id") @db.ObjectId
   email String  @unique
-  name  String?
-  posts Post[]
+  name  String
+  users Users[]
+  units Units[]
 }
 
-// model relation example:
-
-// model Users {
-//   id       Int     @id @default(autoincrement())
-//   email    String  @unique
-//   password String
-//   cards    Cards[]
-
-//   @@map("users")
-// }
-
-// model Cards {
-//   id             Int     @id @default(autoincrement())
-//   title          String
-//   number         String
-//   name           String
-//   securityCode   String
-//   expirationDate String
-//   password       String
-//   isVirtual      Boolean
-//   type           Card
-//   userId         Int
-//   users          Users   @relation(fields: [userId], references: [id])
-
-//   @@unique([userId, title])
-//   @@map("cards")
-// }
-
-// enum example:
-
-// enum Card {
-//   credit
-//   debit
-//   both
-// }
+model Units {
+  id        String        @id @default(auto()) @map("_id") @db.ObjectId
+  companyId String        @db.ObjectId
+  company   Companies     @relation(fields: [companyId], references: [id])
+  addressId String        @db.ObjectId
+  address   UnitsAdresses @relation(fields: [addressId], references: [id])
+  assets    Assets[]
+}
