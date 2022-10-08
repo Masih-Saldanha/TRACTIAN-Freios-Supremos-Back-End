@@ -1,4 +1,8 @@
+import { Companies } from "@prisma/client";
+
 import { prisma } from "../config/database.js";
+
+export type CompanyData = Omit<Companies, "id">;
 
 async function registerCompany(email: string, name: string) {
     return prisma.companies.create({ data: { email, name } });
@@ -6,6 +10,10 @@ async function registerCompany(email: string, name: string) {
 
 async function findCompanyById(id: string) {
     return prisma.companies.findUnique({ where: { id } });
+};
+
+async function findCompanyByEmail(email: string) {
+    return prisma.companies.findUnique({ where: { email } });
 };
 
 async function findAllCompanies() {
@@ -23,6 +31,7 @@ async function deleteCompanyById(id: string) {
 const companyRepository = {
     registerCompany,
     findCompanyById,
+    findCompanyByEmail,
     findAllCompanies,
     editCompanyById,
     deleteCompanyById,
