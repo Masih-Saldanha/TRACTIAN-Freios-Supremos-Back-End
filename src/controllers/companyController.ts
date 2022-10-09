@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+
 import companyService from "../services/companyService.js";
 
 async function registerCompany(req: Request, res: Response) {

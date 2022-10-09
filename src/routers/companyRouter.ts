@@ -1,4 +1,5 @@
 import { Router } from "express";
+
 import companyController from "../controllers/companyController.js";
 import { validateSchema } from "../middlewares/schemaValidationMiddleware.js";
 import companySchema from "../schemas/companySchema.js";

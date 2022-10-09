@@ -41,7 +41,7 @@ model Users {
 model UnitsAdresses {
   id               String  @id @default(auto()) @map("_id") @db.ObjectId
   street           String
-  number           Int
+  number           String
   zip              String
   extraInformation String?
   units            Units[]
@@ -57,6 +57,7 @@ model Companies {
 
 model Units {
   id        String        @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
   companyId String        @db.ObjectId
   company   Companies     @relation(fields: [companyId], references: [id])
   addressId String        @db.ObjectId
