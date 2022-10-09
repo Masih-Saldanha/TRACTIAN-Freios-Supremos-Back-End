@@ -21,7 +21,11 @@ async function findAllUsers() {
 };
 
 async function editUserById(id: string, email?: string, name?: string, password?: string, companyId?: string) {
-    return prisma.users.update({ where: { id }, data: { email, name, password, companyId }, include: { company: true } });
+    return prisma.users.update({
+        where: { id },
+        data: { email, name, password, companyId },
+        include: { company: true }
+    });
 };
 
 async function deleteUserById(id: string) {

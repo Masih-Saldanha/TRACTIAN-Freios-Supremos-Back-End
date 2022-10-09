@@ -13,7 +13,10 @@ async function findUnitAdressById(id: string) {
 };
 
 async function editUnitAdressById(id: string, street?: string, number?: string, zip?: string, extraInformation?: string) {
-    return prisma.unitsAdresses.update({ where: { id }, data: { street, number, zip, extraInformation } });
+    return prisma.unitsAdresses.update({
+        where: { id },
+        data: { street, number, zip, extraInformation }
+    });
 };
 
 async function deleteUnitAdressById(id: string) {
