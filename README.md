@@ -1,215 +1,226 @@
 <p align="center">
   <a href="https://github.com/$username-github/$nome-repositorio">
-    <img src="https://notion-emojis.s3-us-west-2.amazonaws.com/prod/svg-twitter/1f512.svg" alt="readme-logo" width="80" height="80"> <!-- src="image-link" -->
+    <img src="https://notion-emojis.s3-us-west-2.amazonaws.com/prod/svg-twitter/1f698.svg" alt="readme-logo" width="80" height="80"> <!-- src="image-link" -->
   </a>
 
   <h3 align="center">
-    Back-end Template
+    TRACTIAN - Freios Supremos
   </h3>
 </p>
 
-## Description
+# Description
 
-This is an back-end repository template.
+This is the back-end service layer of the Application "TRACTIAN - Freios Supremos".
 
-## Database deploy link
+# Database deploy link
 
-https://back-end-template-example.com/
+https://tractian-freios-supremos-back.herokuapp.com/
 
-## Usage
+# Local Usage
 
 ```bash
-$ git clone https://github.com/Masih-Saldanha/back-end-template
+$ git clone git@github.com:Masih-Saldanha/TRACTIAN-Freios-Supremos-Back-End.git
 
-$ cd back-end-template
+$ cd TRACTIAN-Freios-Supremos-Back-End
 
 $ npm install
 
 $ npm run dev
 ```
 
-## API:
+# API:
 
-Under Construction...
-<!-- 
-### Rotas de autenticação:
+
+## User Routes:
 
 ```
-- POST /signup
-    - Rota para cadastrar um usuário (Senha de no mínimo 10 caracteres)
+- POST /user/
+    - Route to register a user (Password of at least 8 characters)
     - headers: {}
     - body: {
         "email": "email@email.com",
-        "password": "somepassword"
+        "name": "Name",
+        "password": "somepassword",
+        "repeatPassword": "somepassword",
+        "companyId": "6341cc08b04a410cb2744e26"
     }
 ```
 ```
-- POST /signin
-    - Rota para o usuário logar e receber um token através do corpo da resposta
+- GET /user/:id
+    - Route to retrieve the information of a specific user through their id
+    - headers: {}
+    - body: {}
+```
+```
+- GET /user/
+    - Route to retrieve the information of all users
+    - headers: {}
+    - body: {}
+```
+```
+- PUT /user/
+    - Route to edit some information(s) of a user (All parameters are optional, you can change any one or only one, but at least one information must be changed)
+    - headers: {}
+    - body: {
+        "id": "6342e56f48ca4581cbbe0659",
+        "email": "email@email.com",
+        "name": "Name",
+        "password": "somepassword",
+        "repeatPassword": "somepassword",
+        "companyId": "6341cc08b04a410cb2744e26"
+    }
+```
+```
+- DELETE /user/
+    - Route to delete a user from the system through its id
+    - headers: {}
+    - body: {
+        "id": "6342e56f48ca4581cbbe0659"
+    }
+```
+
+## Company Routes:
+
+```
+- POST /company/
+    - Route to register a company
     - headers: {}
     - body: {
         "email": "email@email.com",
-        "password": "somepassword"
+        "name": "Name"
     }
 ```
-    
-### Rotas de credenciais:
+```
+- GET /company/:id
+    - Route to retrieve the information of a specific company through its id
+    - headers: {}
+    - body: {}
+```
+```
+- GET /company/
+    - Route to retrieve the information of all companies
+    - headers: {}
+    - body: {}
+```
+```
+- PUT /company/
+    - Route to edit some information(s) of a company (All parameters are optional, you can change any one or only one, but at least one information must be changed)
+    - headers: {}
+    - body: {
+        "id": "6341cc08b04a410cb2744e26",
+        "email": "email@email.com",
+        "name": "Name"
+    }
+```
+```
+- DELETE /company/
+    - Route to delete a company from the system through its id
+    - headers: {}
+    - body: {
+        "id": "6341cc08b04a410cb2744e26"
+    }
+```
+
+## Unit Routes:
 
 ```
-- POST /credential/register
-    - Rota para o usuário registrar uma credencial
-    - headers: {
-        "Authorization": "Bearer token"
-    }
+- POST /unit/
+    - Route to register a unit ('extraInformation' can be 'null')
+    - headers: {}
     - body: {
-        "title": "Some title",
-        "url": "http://www.someurl.com",
-        "user": "Some User Name",
-        "password": "somepassword"
+        "name": "Name",
+        "companyId": "6341cc08b04a410cb2744e26",
+        "street": "Some street",
+        "number": "123",
+        "zip": "12345-1234",
+        "extraInformation": "Something"
     }
 ```
 ```
-- GET /credential/getall
-    - Rota para o usuário resgatar todas as suas credenciais criadas através do corpo da resposta
-    - headers: {
-        "Authorization": "Bearer token"
-    }
+- GET /unit/:id
+    - Route to retrieve the information of a specific unit through its id
+    - headers: {}
     - body: {}
 ```
 ```
-- GET /credential/get/:credentialId
-    - Rota para o usuário resgatar uma credencial específica informada pelo params "credentialId" através do corpo da resposta
-    - headers: {
-        "Authorization": "Bearer token"
-    }
+- GET /unit/
+    - Route to retrieve the information of all units
+    - headers: {}
     - body: {}
 ```
 ```
-- DELETE /credential/delete/:credentialId
-    - Rota para o usuário deletar uma credencial específica informada pelo params "credentialId"
-    - headers: {
-        "Authorization": "Bearer token"
+- PUT /unit/
+    - Route to edit some information(s) of a unit (All parameters are optional, you can change any one or only one, but at least one information must be changed. Also, 'extraInformation' can be 'null')
+    - headers: {}
+    - body: {
+        "id": "63431f95f4d77a3f0ebf79e7",
+        "name": "Name",
+        "companyId": "6341cc08b04a410cb2744e26",
+        "street": "Some street",
+        "number": "123",
+        "zip": "12345-1234",
+        "extraInformation": "Something"
     }
-    - body: {}
 ```
-    
-### Rotas de notas seguras:
+```
+- DELETE /unit/
+    - Route to delete a unit from the system through its id
+    - headers: {}
+    - body: {
+        "id": "63431f95f4d77a3f0ebf79e7"
+    }
+```
+
+## Asset Routes:
 
 ```
-- POST /securenote/register
-    - Rota para o usuário registrar uma nota segura ("title" máx 50 char. e "note" máx 1000 char.)
-    - headers: {
-        "Authorization": "Bearer token"
-    }
+- POST /asset/
+    - Route to register an asset ('status' has to be one between "Running", "Alerting" and "Alerting". Also, 'healthLevel' must be a integer number between 0 and 100)
+    - headers: {}
     - body: {
-        "title": "Some Title",
-        "note": "Some Note"
+        "image": "image.com/image.png",
+        "name": "Name",
+        "description": "Some description",
+        "model": "A1",
+        "owner": "Someone",
+        "status": "Running",
+        "healthLevel": 99,
+        "unitId": "63431f95f4d77a3f0ebf79e7"
     }
 ```
 ```
-- GET /securenote/getall
-    - Rota para o usuário resgatar todas as suas notas seguras criadas através do corpo da resposta
-    - headers: {
-        "Authorization": "Bearer token"
-    }
+- GET /asset/:id
+    - Route to retrieve the information of a specific asset through its id
+    - headers: {}
     - body: {}
 ```
 ```
-- GET /securenote/get/:securenoteId
-    - Rota para o usuário resgatar uma nota segura específica informada pelo params "securenoteId" através do corpo da resposta
-    - headers: {
-        "Authorization": "Bearer token"
-    }
+- GET /asset/
+    - Route to retrieve the information of all assets
+    - headers: {}
     - body: {}
 ```
 ```
-- DELETE /securenote/delete/:securenoteId
-    - Rota para o usuário deletar uma nota segura específica informada pelo params "securenoteId"
-    - headers: {
-        "Authorization": "Bearer token"
-    }
-    - body: {}
-```
-    
-### Rotas de cartões:
-
-```
-- POST /card/register
-    - Rota para o usuário registrar um cartão ("type": credit, debit ou both)
-    - headers: {
-        "Authorization": "Bearer token"
-    }
+- PUT /asset/
+    - Route to edit some information(s) of an asset (All parameters are optional, you can change any one or only one, but at least one information must be changed. 'status' has to be one between "Running", "Alerting" and "Alerting". Also, 'healthLevel' must be a integer number between 0 and 100)
+    - headers: {}
     - body: {
-        "title": "Some Title",
-        "number": "1234 1234 1234 1234",
-        "name": "Some Name",
-        "securityCode": "123",
-        "expirationDate": "10/27",
-        "password": "1234",
-        "isVirtual": false,
-        "type": "both"
+        "id": "634467c64f9cb88028ee7cb1",
+        "image": "image.com/image.png",
+        "name": "Name",
+        "description": "Some description",
+        "model": "A1",
+        "owner": "Someone",
+        "status": "Running",
+        "healthLevel": 99,
+        "unitId": "63431f95f4d77a3f0ebf79e7"
     }
 ```
 ```
-- GET /card/getall
-    - Rota para o usuário resgatar todas os seus cartões criados através do corpo da resposta
-    - headers: {
-        "Authorization": "Bearer token"
-    }
-    - body: {}
-```
-```
-- GET /card/get/:cardId
-    - Rota para o usuário resgatar um cartão específico informado pelo params "cardId" através do corpo da resposta
-    - headers: {
-        "Authorization": "Bearer token"
-    }
-    - body: {}
-```
-```
-- DELETE /card/delete/:cardId
-    - Rota para o usuário deletar um cartão específico informado pelo params "cardId"
-    - headers: {
-        "Authorization": "Bearer token"
-    }
-    - body: {}
-```
-    
-### Rotas de wi-fi:
-
-```
-- POST /wifi/register
-    - Rota para o usuário registrar uma wi-fi
-    - headers: {
-        "Authorization": "Bearer token"
-    }
+- DELETE /asset/
+    - Route to delete an asset from the system through its id
+    - headers: {}
     - body: {
-        "title": "Some Title",
-        "name": "Some Name",
-        "password": "somepassword"
+        "id": "634467c64f9cb88028ee7cb1"
     }
 ```
-```
-- GET /wifi/getall
-    - Rota para o usuário resgatar todas as suas wi-fis criadas através do corpo da resposta
-    - headers: {
-        "Authorization": "Bearer token"
-    }
-    - body: {}
-```
-```
-- GET /wifi/get/:wifiId
-    - Rota para o usuário resgatar uma wi-fi específica informada pelo params "wifiId" através do corpo da resposta
-    - headers: {
-        "Authorization": "Bearer token"
-    }
-    - body: {}
-```
-```
-- DELETE /wifi/delete/:wifiId
-    - Rota para o usuário deletar uma wi-fi específica informada pelo params "wifiId"
-    - headers: {
-        "Authorization": "Bearer token"
-    }
-    - body: {}
-``` -->
