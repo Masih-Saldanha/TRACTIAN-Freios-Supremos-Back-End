@@ -10,13 +10,6 @@ async function registerUnit(name: string, companyId: string, street: string, num
     const newAdress = await unitsAdressesRepository.registerUnitAdress(street, number, zip, extraInformation);
 
     const newUnit = await unitRepository.registerUnit(name, companyId, newAdress.id);
-    delete newUnit.companyId;
-    delete newUnit.addressId;
-
-    newUnit.company.users.forEach((user) => {
-        delete user.companyId;
-        delete user.password;
-    });
 
     return newUnit;
 };
@@ -24,45 +17,25 @@ async function registerUnit(name: string, companyId: string, street: string, num
 async function findUnitById(id: string) {
     const unit = await unitRepository.findUnitById(id);
     throwError(!unit, "Not Found", `The unit id: "${id}" doesn't exist, try again`);
-    delete unit.companyId;
-    delete unit.addressId;
-    unit.company.users.forEach((user) => {
-        delete user.companyId;
-        delete user.password;
-    });
     return unit;
 };
 
 async function findAllUnits() {
     const units = await unitRepository.findAllUnits();
-    units.forEach((unit) => {
-        delete unit.companyId;
-        delete unit.addressId;
-        unit.company.users.forEach((user) => {
-            delete user.companyId;
-            delete user.password;
-        });
-    });
     return units;
 };
 
 async function editUnitById(id: string, name?: string, companyId?: string, street?: string, number?: string, zip?: string, extraInformation?: string) {
+    throwError((!name && !companyId && !street && !number && !zip && !extraInformation), "Not Acceptable", `No data was received to update`);
+    
     const existUnit = await unitRepository.findUnitById(id);
     throwError(!existUnit, "Not Found", `The unit id: "${id}" doesn't exist, try again`);
 
-    if (!name && !companyId && !street && !number && !zip && !extraInformation) {
-        return;
+    if (!!street || !!number || !!zip || !!extraInformation) {
+        await unitsAdressesRepository.editUnitAdressById(existUnit.address.id, street, number, zip, extraInformation);
     };
 
-    const editedAdress = await unitsAdressesRepository.editUnitAdressById(existUnit.addressId, street, number, zip, extraInformation);
-
-    const editedUnit = await unitRepository.editUnitById(id, name, companyId, existUnit.addressId);
-    delete editedUnit.companyId;
-    delete editedUnit.addressId;
-    editedUnit.company.users.forEach((user) => {
-        delete user.companyId;
-        delete user.password;
-    });
+    const editedUnit = await unitRepository.editUnitById(id, name, companyId, existUnit.address.id);
     return editedUnit;
 };
 

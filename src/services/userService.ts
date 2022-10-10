@@ -14,36 +14,25 @@ async function registerUser(email: string, name: string, password: string, compa
     password = bcrypt.hashSync(password, +process.env.BCRYPT_SALT);
 
     const newUser = await userRepository.registerUser(email, name, password, companyId);
-    delete newUser.password;
-    delete newUser.companyId;
-    const userToSend = {...newUser, company: existCompany};
-    return userToSend;
+    return newUser;
 };
 
 async function findUserById(id: string) {
     const user = await userRepository.findUserById(id);
     throwError(!user, "Not Found", `The user id: "${id}" doesn't exist, try again`);
-    delete user.password;
-    delete user.companyId;
     return user;
 };
 
 async function findAllUsers() {
     const users = await userRepository.findAllUsers();
-    users.forEach((user) => {
-        delete user.password;
-        delete user.companyId;
-    });
     return users;
 };
 
 async function editUserById(id: string, email?: string, name?: string, password?: string, companyId?: string) {
+    throwError((!email && !name && !password && !companyId), "Not Acceptable", `No data was received to update`);
+    
     const existUser = await userRepository.findUserById(id);
     throwError(!existUser, "Not Found", `The user id: "${id}" doesn't exist, try again`);
-
-    if (!email && !name && !password && !companyId) {
-        return;
-    }
 
     if (password) {
         password = bcrypt.hashSync(password, +process.env.BCRYPT_SALT);
@@ -56,8 +45,6 @@ async function editUserById(id: string, email?: string, name?: string, password?
     }
 
     const editedUser = await userRepository.editUserById(id, email, name, password, companyId);
-    delete editedUser.password;
-    delete editedUser.companyId;
     return editedUser;
 };
 

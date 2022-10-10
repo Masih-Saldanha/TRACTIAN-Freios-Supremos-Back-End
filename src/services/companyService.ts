@@ -21,12 +21,10 @@ async function findAllCompanies() {
 };
 
 async function editCompanyById(id: string, email?: string, name?: string) {
+    throwError((!email && !name), "Not Acceptable", `No data was received to update`);
+    
     const existCompany = await companyRepository.findCompanyById(id);
     throwError(!existCompany, "Not Found", `The company id: "${id}" doesn't exist, try again`);
-
-    if (!email && !name) {
-        return;
-    }
 
     if (email) {
         const repeatedCompanyEmail = await companyRepository.findCompanyByEmail(email);
