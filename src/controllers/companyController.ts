@@ -5,7 +5,7 @@ import companyService from "../services/companyService.js";
 async function registerCompany(req: Request, res: Response) {
     const { email, name }: { email: string, name: string } = req.body;
     const newCompany = await companyService.registerCompany(email, name);
-    res.status(200).send(newCompany);
+    res.status(201).send(newCompany);
 };
 
 async function findCompanyById(req: Request, res: Response) {

@@ -1,3 +1,5 @@
+// If necessary, can be developed:
+
 import { prisma } from "../src/config/database.js";
 
 (async function main() {

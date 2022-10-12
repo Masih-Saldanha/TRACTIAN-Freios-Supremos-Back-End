@@ -5,7 +5,7 @@ import unitService from "../services/unitService.js";
 async function registerUnit(req: Request, res: Response) {
     const { name, companyId, street, number, zip, extraInformation }: { name: string, companyId: string, street: string, number: string, zip: string, extraInformation?: string } = req.body;
     const newUnit = await unitService.registerUnit(name, companyId, street, number, zip, extraInformation);
-    res.status(200).send(newUnit);
+    res.status(201).send(newUnit);
 };
 
 async function findUnitById(req: Request, res: Response) {

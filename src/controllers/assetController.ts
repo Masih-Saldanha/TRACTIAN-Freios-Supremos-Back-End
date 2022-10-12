@@ -6,7 +6,7 @@ import assetService from "../services/assetService.js";
 async function registerAsset(req: Request, res: Response) {
     const { image, name, description, model, owner, status, healthLevel, unitId }: { image: string, name: string, description: string, model: string, owner: string, status: Status, healthLevel: number, unitId: string } = req.body;
     const newAsset = await assetService.registerAsset(image, name, description, model, owner, status, healthLevel, unitId);
-    res.status(200).send(newAsset);
+    res.status(201).send(newAsset);
 };
 
 async function findAssetById(req: Request, res: Response) {

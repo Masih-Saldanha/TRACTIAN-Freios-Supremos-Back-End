@@ -1,3 +1,5 @@
+// If necessary, can be developed:
+
 const asset1 = {};
 const assets = [asset1,];
 

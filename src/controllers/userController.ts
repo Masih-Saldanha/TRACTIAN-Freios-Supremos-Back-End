@@ -5,7 +5,7 @@ import userService from "../services/userService.js";
 async function registerUser(req: Request, res: Response) {
     const { email, name, password, companyId }: { email: string, name: string, password: string, companyId: string } = req.body;
     const newUser = await userService.registerUser(email, name, password, companyId);
-    res.status(200).send(newUser);
+    res.status(201).send(newUser);
 };
 
 async function findUserById(req: Request, res: Response) {
