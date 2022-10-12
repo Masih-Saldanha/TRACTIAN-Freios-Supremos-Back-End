@@ -23,11 +23,19 @@ $ git clone git@github.com:Masih-Saldanha/TRACTIAN-Freios-Supremos-Back-End.git
 
 $ cd TRACTIAN-Freios-Supremos-Back-End
 
-// Create a copy of .env.test and fill it.
+// Create a copy of .env.example as .env and fill it.
 
 $ npm install
 
 $ npm run dev
+```
+
+# Local Tests
+
+```bash
+// Create a copy of .env.example as .env.test and fill it.
+
+$ npm run test
 ```
 
 # API:
